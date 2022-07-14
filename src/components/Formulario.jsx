@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import Alerta from './Alerta'
-import Spinner from './Spinner'
+import Spinner from '../components/Spinner'
 
 const Formulario = ({cliente, cargando}) => {
 
@@ -31,7 +31,7 @@ const Formulario = ({cliente, cargando}) => {
             let respuesta 
             if(cliente.id) {
                 // Editando un registro
-                const url = `http://localhost:4000/clientes/${cliente.id}`
+                const url = `${import.meta.env.VITE_API_URL}/${cliente.id}`
                 respuesta = await fetch(url, {
                     method: 'PUT',
                     body: JSON.stringify(valores),
@@ -42,7 +42,7 @@ const Formulario = ({cliente, cargando}) => {
 
             } else {
                 // Nuevo Registro
-                const url = 'http://localhost:4000/clientes'
+                const url = import.meta.env.VITE_API_URL
                 respuesta = await fetch(url, {
                     method: 'POST',
                     body: JSON.stringify(valores),
@@ -188,6 +188,10 @@ const Formulario = ({cliente, cargando}) => {
 Formulario.defaultProps = {
     cliente: {},
     cargando: false
+}
+
+Formulario.defaultProps = {
+    cliente : {}
 }
 
 export default Formulario
